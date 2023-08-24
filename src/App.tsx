@@ -7,7 +7,7 @@ import Footer from "./components/footer/Footer";
 import Menu from "./components/menu/Menu";
 import Login from "./pages/Login/Login";
 import "./styles/global.scss";
-import Posts from "./pages/Posts/posts";
+import Posts from "./pages/Posts/Posts";
 import Orders from "./pages/Orders/Orders";
 import Elements from "./pages/Elements/Elements";
 import User from "./pages/User/User";

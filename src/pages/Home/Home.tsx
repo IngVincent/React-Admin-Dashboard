@@ -1,6 +1,6 @@
 import BarChartBox from "../../components/barChartBox/BarchartBox"
 import ChartBox from "../../components/chartBox/chartBox"
-import TopBox from "../../components/topBox/topBox"
+import TopBox from "../../components/topBox/TopBox"
 import { barChartBoxRevenue, barChartBoxVisit, chartBoxConversion, chartBoxProduct, chartBoxRevenue, chartBoxUser } from "../../data"
 import "./home.scss"
 import PieChartBox from '../../components/pieChartBox/PieChartBox';

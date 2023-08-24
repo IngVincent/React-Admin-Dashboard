@@ -4,6 +4,7 @@ import DataTable from "../../components/dataTable/DataTable";
 //import Add from "../../components/add/Add";
 import { GridColDef } from "@mui/x-data-grid";
 import { products } from "../../data";
+import Add from "../../components/add/Add";
 
 const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 90 },
