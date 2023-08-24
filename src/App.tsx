@@ -11,6 +11,7 @@ import Posts from "./pages/Posts/posts";
 import Orders from "./pages/Orders/Orders";
 import Elements from "./pages/Elements/Elements";
 import User from "./pages/User/User";
+import Product from "./pages/Product/Product";
 
 function App() {
   const Layout = () => {
@@ -64,6 +65,10 @@ function App() {
         {
           path: "/users/:id",
           element: <User />,
+        },
+        {
+          path: "/Products/:id",
+          element: <Product />,
         },
       ]
     },
