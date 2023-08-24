@@ -1,44 +1,87 @@
-import "./dataTable.scss"
-import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
+import {
+    DataGrid,
+    GridColDef,
+    GridToolbar,
+} from "@mui/x-data-grid";
+import "./dataTable.scss";
+import { Link } from "react-router-dom";
 
-const rows: GridRowsProp = [
-    { id: 1, col1: '1', col2: 'vicente', col3: "Lazcano", col4: "30", col5: "Vicente Lazcano" },
-    { id: 2, col1: '1', col2: 'vicente', col3: "Lazcano", col4: "30", col5: "Vicente Lazcano" },
-    { id: 3, col1: '1', col2: 'vicente', col3: "Lazcano", col4: "30", col5: "Vicente Lazcano" },
-    { id: 4, col1: '1', col2: 'vicente', col3: "Lazcano", col4: "30", col5: "Vicente Lazcano" },
-    { id: 5, col1: '1', col2: 'vicente', col3: "Lazcano", col4: "30", col5: "Vicente Lazcano" },
-    { id: 6, col1: '1', col2: 'vicente', col3: "Lazcano", col4: "30", col5: "Vicente Lazcano" },
-    { id: 7, col1: '1', col2: 'vicente', col3: "Lazcano", col4: "30", col5: "Vicente Lazcano" },
-    { id: 8, col1: '1', col2: 'vicente', col3: "Lazcano", col4: "30", col5: "Vicente Lazcano" },
-];
+// import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-const columns: GridColDef[] = [
-    { field: 'col1', headerName: 'Id', width: 150 },
-    { field: 'col2', headerName: 'First name', width: 150 },
-    { field: 'col3', headerName: 'Last name', width: 150 },
-    { field: 'col4', headerName: 'Age', width: 150 },
-    { field: 'col5', headerName: 'Full name', width: 150 },
-];
+type Props = {
+    columns: GridColDef[];
+    rows: object[];
+    slug: string;
+};
 
+const DataTable = (props: Props) => {
 
-const DataTable = () => {
+    // TEST THE API
+
+    // const queryClient = useQueryClient();
+    // // const mutation = useMutation({
+    // //   mutationFn: (id: number) => {
+    // //     return fetch(`http://localhost:8800/api/${props.slug}/${id}`, {
+    // //       method: "delete",
+    // //     });
+    // //   },
+    // //   onSuccess: ()=>{
+    // //     queryClient.invalidateQueries([`all${props.slug}`]);
+    // //   }
+    // // });
+
+    const handleDelete = (id: number) => {
+        //delete the item
+        console.log(id + " has been deleted");
+
+    };
+
+    const actionColumn: GridColDef = {
+        field: "action",
+        headerName: "Action",
+        width: 200,
+        renderCell: (params) => {
+            return (
+                <div className="action">
+                    <Link to={`/${props.slug}/${params.row.id}`}>
+                        <img src="/view.svg" alt="" />
+                    </Link>
+                    <div className="delete" onClick={() => handleDelete(params.row.id)}>
+                        <img src="/delete.svg" alt="" />
+                    </div>
+                </div>
+            );
+        },
+    };
+
     return (
         <div className="dataTable">
             <DataGrid
-                rows={rows}
-                columns={columns}
+                className="dataGrid"
+                rows={props.rows}
+                columns={[...props.columns, actionColumn]}
                 initialState={{
                     pagination: {
                         paginationModel: {
-                            pageSize: 5,
+                            pageSize: 10,
                         },
+                    },
+                }}
+                slots={{ toolbar: GridToolbar }}
+                slotProps={{
+                    toolbar: {
+                        showQuickFilter: true,
+                        quickFilterProps: { debounceMs: 500 },
                     },
                 }}
                 pageSizeOptions={[5]}
                 checkboxSelection
-                disableRowSelectionOnClick
+                disableDensitySelector
+                disableColumnFilter
+                disableColumnSelector
             />
         </div>
-    )
-}
-export default DataTable
+    );
+};
+
+export default DataTable;
